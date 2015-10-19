@@ -1,0 +1,57 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+
+% For code formatting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+% TITLE
+\title{CS50 Seminar: Type-ing Music with Haskell and LilyPond}
+\author{Connor Harris and Stephen Krewson}
+
+% The Slide Deck
+\begin{document}
+
+\frame{\titlepage} 
+\frame{\frametitle{Table of contents}\tableofcontents} 
+
+% EUTERPEA
+\section{Euterpea}
+\begin{frame}
+
+\frametitle{Some code}
+\lstinputlisting[language=Haskell]{test.lhs}
+
+\end{frame}
+
+\section{LilyPond}
+\begin{frame}{Frame Title}
+LilyPond stuff.
+\end{frame}
+
+\end{document}
