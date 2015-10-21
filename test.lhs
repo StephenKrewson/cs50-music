@@ -1,5 +1,3 @@
-> {-# LANGUAGE OverloadedStrings #-}
-
 > module CS50 where
 > import Euterpea
 > import qualified Turtle as T
