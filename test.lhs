@@ -12,7 +12,7 @@ Compose some music!
 > dingDong = [(c 4 qn :=: e 3 qn), (f 3 qn :=: g 3 qn), (c 4 hn :=: e 3 hn)]
 
 > frereJacques :: [Music Pitch]
-> frereJacques = concat $ concat $ map (replicate 2) [youSleeping, brotherJohn, morningBells, dingDong]
+> frereJacques = concat $ concatmap (replicate 2) [youSleeping, brotherJohn, morningBells, dingDong]
 
 > withRound = let part1 = instrument AcousticGrandPiano (line frereJacques)
 >                 part2 = instrument Violin (line (rest 2 : frereJacques))
