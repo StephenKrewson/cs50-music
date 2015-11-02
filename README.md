@@ -33,6 +33,7 @@ See [the following](http://euterpea.com/install). My own setup uses Windows 7, b
 One Mac, you'll need to install some additional software. On Ubuntu, there are just a few packages to download with apt-get.
 
 - Audio
+
 Presumably, your computer can generate sound. This is no guarantee that it can synthesize MIDI, however. Older versions of Windows did have a built-in wavetable synth. But in general, you'll need to install some software to take the MIDI representation of some musical sequence and turn it into audio.
 
 Consult Donya Quick's [excellent overview] (http://donyaquick.com/midi-on-windows/).
