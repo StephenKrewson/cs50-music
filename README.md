@@ -51,7 +51,9 @@ You'll have to unzip sfARK itself.
 It may be easier to just pick an uncompresseed SountFont. There are plenty of them listed on the SynthFont website.
 
 - LilyPond
+
 You can install LilyPond [here] (http://lilypond.org/download.html). Don't change any of the defaults during the install, since we'll want things like the bundled Python interpreter to make our use of the midi2ly script easier.
 
 - midi2ly
+
 Make sure your PATH and PATHEXT environment variables are set correctly as described [here] (http://www.lilypond.org/doc/v2.19/Documentation/usage/invoking-midi2ly). More on midi2ly soon.
