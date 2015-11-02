@@ -23,24 +23,27 @@ list comp, typeclasses (Eq, Ord, etc.)
 > stepSequence' _ [] = []
 > stepSequence' n xs = [if x `elem` xs then perc BassDrum1 qn else qnr | x <- [1..n]]
 
-> seqSizeGlobal = 32
+> gN :: Int
+> gN = 32
 
 > stepSequence :: Int -> [Int] -> Music Pitch
 > stepSequence _ [] = rest 0
-> stepSequence p xs = line [if x `elem` xs then perc (toEnum p) qn else qnr | x <- [1..seqSizeGlobal]]
+> stepSequence p xs = line [if x `elem` xs then perc (toEnum p) qn else qnr | x <- [1..gN]]
 
-> drumMachine :: IO ()
-> drumMachine = let r = [1..seqSizeGlobal]
->                   f n p = (\x -> x `mod` n == p)
->                   p1 = stepSequence 1 $ filter (f 4 1) r
->                   p2 = stepSequence 7 $ filter (f 4 3) r
->                   p3 = stepSequence 0 [7,10,14]
->                   p4 = stepSequence 4 $ filter (f 8 5) r
->                   p5 = stepSequence 27 [2,4,8,12]
->                   p6 = stepSequence 28 [3,7,11]
->                   p7 = stepSequence 29 [8,15,16]
->                   p8 = stepSequence 9  [8,9,10,12,13,14,16]
->               in play $ tempo 4 $ instrument Percussion $ takeM 16 $ repeatM $ chord [p1,p2,p3,p4,p5,p6,p7,p8]
+> drumMachine :: Dur -> IO ()
+> drumMachine d = let r = [1..gN]
+>                     f n p = (\x -> x `mod` n == p)
+>                     p1 = stepSequence 1 $ filter (f 4 1) r
+>                     p2 = stepSequence 7 $ filter (f 4 3) r
+>                     p3 = stepSequence 0 [7,10,14,23,26,30]
+>                     p4 = stepSequence 4 $ filter (f 8 5) r
+>                     p5 = stepSequence 27 $ foldr (:) [] $ filter (odd) [1..5]
+>                     p6 = stepSequence 28 $ map (`mod` gN) $ scanr (+) 1 [1..5]
+>                     p7 = stepSequence 29 $ zipWith (*) (concatMap (replicate (gN `quot` 3)) [8,15,16]) (take gN $ cycle [1..(gN `quot` 3)])
+>                     p8 = stepSequence 41 $ take gN $ iterate (+3) 2
+>                     p9 = stepSequence 35 $ filter (not . (f 4 1)) r
+>                     p10 = stepSequence 3 [7,15,25,28,32]
+>                 in play $ tempo 4 $ instrument Percussion $ takeM d $ repeatM $ chord [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]
 
 > funkGroove :: Music Pitch
 > funkGroove = let p1 = perc LowTom qn
