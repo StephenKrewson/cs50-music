@@ -27,24 +27,25 @@ Part 1: Let's compose some music!
 > gN :: Int
 > gN = 32
 
-> stepSequence :: Int -> [Int] -> Music Pitch
-> stepSequence _ [] = rest 0
-> stepSequence p xs = line [if x `elem` xs then perc (toEnum p) qn else qnr | x <- [1..gN]]
+> stepSequence :: Maybe Volume -> Int -> [Int] -> Music (Pitch, Volume)
+> stepSequence _ _ [] = rest 0
+> stepSequence v p xs = addVolume v' $ line [if x `elem` xs then perc (toEnum p) qn else qnr | x <- [1..gN]]
+>	where v' = fromMaybe 75 v
 
 > drumMachine :: Music (Pitch, Volume)
 > drumMachine = let r = [1..gN]
 >                   f n p = (\x -> x `mod` n == p)
->                   p1 = stepSequence 1 $ filter (f 4 1) r
->                   p2 = stepSequence 7 $ filter (f 4 3) r
->                   p3 = stepSequence 0 [7,10,14,23,26,30]
->                   p4 = stepSequence 4 $ filter (f 8 5) r
->                   p5 = stepSequence 27 $ foldr (:) [] $ filter (odd) [1..5]
->                   p6 = stepSequence 28 $ map (`mod` gN) $ scanr (+) 1 [1..5]
->                   p7 = stepSequence 29 $ zipWith (*) (concatMap (replicate (gN `quot` 3)) [8,15,16]) (take gN $ cycle [1..(gN `quot` 3)])
->                   p8 = stepSequence 41 $ take gN $ iterate (+3) 2
->                   p9 = stepSequence 35 $ filter (not . (f 4 1)) r
->                   p10 = stepSequence 3 [7,15,25,28,32]
->               in addVolume 90 $ tempo 4 $ instrument Percussion $ repeatM $ chord [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]
+>                   p1 = stepSequence (Just 127) 1 $ filter (f 4 1) r
+>                   p2 = stepSequence Nothing 7 $ filter (f 4 3) r
+>                   p3 = stepSequence (Just 127) 0 [7,10,14,23,26,30]
+>                   p4 = stepSequence Nothing 4 $ filter (f 8 5) r
+>                   p5 = stepSequence (Just 127) 27 $ foldr (:) [] $ filter (odd) [2,7,4,31,30,10,11,14]
+>                   p6 = stepSequence Nothing 28 $ map (`mod` gN) $ scanr (+) 1 [1..5]
+>                   p7 = stepSequence Nothing 29 $ zipWith (*) (concatMap (replicate (gN `quot` 3)) [8,15,16]) (take gN $ cycle [1..(gN `quot` 3)])
+>                   p8 = stepSequence Nothing 41 $ take gN $ iterate (+3) 2
+>                   p9 = stepSequence Nothing 35 $ filter (not . (f 4 1)) r
+>                   p10 = stepSequence Nothing 3 [7,15,25,28,32]
+>               in tempo 4 $ instrument Percussion $ repeatM $ chord [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]
 
 > playMusic = play $ frereJacques /=: drumMachine
 > generateMidi = writeMidi "song.midi" frereJacques
