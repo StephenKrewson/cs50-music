@@ -38,7 +38,7 @@ Part 2: Adding Percussion
 >                   p2 = stepSequence Nothing 7 $ filter (f 4 3) r
 >                   p3 = stepSequence (Just 127) 0 [7,10,14,23,26,30]
 >                   p4 = stepSequence Nothing 4 $ filter (f 8 5) r
->                   p5 = stepSequence (Just 127) 27 $ foldr (:) [] $ take gN $ [3,8,21] ++ [1,6..]
+>                   p5 = stepSequence (Just 127) 27 $ take gN $ foldr (:) [] $ [3,8,21] ++ [1,6..]
 >                   p6 = stepSequence Nothing 28 $ map (`mod` gN) $ scanr (+) 1 [1..5]
 >                   p7 = stepSequence Nothing 29 $ zipWith (*) (concatMap (replicate (gN `quot` 3)) [8,15,16]) (take gN $ cycle [1..(gN `quot` 3)])
 >                   p8 = stepSequence Nothing 41 $ take gN $ iterate (+3) 2
