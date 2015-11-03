@@ -24,7 +24,6 @@ Part 1: Let's compose some music!
 Part 2: Adding Percussion
 =========================
 
-> gN :: Int
 > gN = 32
 
 > stepSequence :: Maybe Volume -> Int -> [Int] -> Music (Pitch, Volume)
